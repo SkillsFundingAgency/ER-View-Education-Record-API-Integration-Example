@@ -1,0 +1,11 @@
+﻿@model VERAExample.Models.LearnerData
+
+@{
+    ViewData["Title"] = "LearnerData";
+    }
+
+@await Html.PartialAsync("_LearnerData",Model)
+
+<div>    
+    <a asp-action="Index">Back to start</a>
+</div>
