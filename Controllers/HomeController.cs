@@ -32,22 +32,22 @@ namespace VERAExample.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult QrCode()
+        public async Task<IActionResult> QrCode()
         {
             HttpClient client = new HttpClient();
-            string token = GetBearerToken();
+            string token = await GetBearerTokenAsync();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var result = client.GetAsync("https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/generate-qr-code").Result;
+            var result = await client.GetAsync("https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/generate-qr-code");
             QrCodeModel qrCode = null;
             if (result.IsSuccessStatusCode)
             {
-                string content = result.Content.ReadAsStringAsync().Result;
+                string content = await result.Content.ReadAsStringAsync();
                 qrCode = JsonSerializer.Deserialize<QrCodeModel>(content);
             }
             return View(qrCode);
         }
 
-        private string GetBearerToken()
+        private async Task<string> GetBearerTokenAsync()
         {
             // AAD - DfE Tenant that will issue the JWT
             // client id - the unique registration id that has been issued for the provider - it is important to get this correct. The UKPRN is bound behind the scenes
@@ -71,40 +71,41 @@ namespace VERAExample.Controllers
             };
 
             var requestBody = new FormUrlEncodedContent(dict);
-            var response = httpClient.PostAsync(requestUrl, requestBody).Result;
+            var response = await httpClient.PostAsync(requestUrl, requestBody);
 
             response.EnsureSuccessStatusCode();
 
-            var responseContent = response.Content.ReadAsStringAsync().Result;
+            var responseContent = await response.Content.ReadAsStringAsync();
             var aadToken = JsonSerializer.Deserialize<AzureADToken>(responseContent);
             return aadToken.AccessToken;
         }
 
-        public IActionResult LearnerData(string id)
+        public async Task<IActionResult> LearnerData(string id)
         {
             HttpClient client = new HttpClient();
-            string token = GetBearerToken();
+            string token = await GetBearerTokenAsync();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var result = client.GetAsync($"https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/learner-data?correlationId={id}").Result;
+            var result = await client.GetAsync($"https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/learner-data?correlationId={id}");
             LearnerData data = null;
             if (result.IsSuccessStatusCode)
             {
-                string content = result.Content.ReadAsStringAsync().Result;
+                string content = await result.Content.ReadAsStringAsync();
                 data = JsonSerializer.Deserialize<LearnerData>(content);
             }
             return View(data);
         }
+
         [HttpPost]
-        public IActionResult Retrieve(RetrieveModel model)
+        public async Task<IActionResult> Retrieve(RetrieveModel model)
         {
             HttpClient client = new HttpClient();
-            string token = GetBearerToken();
+            string token = await GetBearerTokenAsync();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var result = client.GetAsync($"https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/learner-data?uln={model.ULN}").Result;
+            var result = await client.GetAsync($"https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/learner-data?uln={model.ULN}");
             LearnerData data = null;
             if (result.IsSuccessStatusCode)
             {
-                string content = result.Content.ReadAsStringAsync().Result;
+                string content = await result.Content.ReadAsStringAsync();
                 data = JsonSerializer.Deserialize<LearnerData>(content);
             }
             return View(data);
