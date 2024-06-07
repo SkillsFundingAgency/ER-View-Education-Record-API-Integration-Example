@@ -51,8 +51,9 @@ namespace VERAExample.Controllers
         {
             // AAD - DfE Tenant that will issue the JWT
             // client id - the unique registration id that has been issued for the provider - it is important to get this correct. The UKPRN is bound behind the scenes
-            // client secret - the unique secret that has been issued by the DfE for the provider.
-            // resource (the API that you want permission for)
+            // DO NOT share this value across multiple providers - each provider must have a unique value
+            // client secret - the unique secret that has been issued by the DfE for the provider. The secret and the client id travel as a pair
+            // resource (the API that you want permission for) (this will be supplied by DfE)
 
             var tenantId = _configuration.GetSection("DfESecuritySettings")["tenantId"];
             var clientId = _configuration.GetSection("DfESecuritySettings")["clientId"];
