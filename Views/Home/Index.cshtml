@@ -1,18 +1,19 @@
 ﻿@model RetrieveModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "View Education Record API examples";
 }
 
-<div class="text-center">
+<div class="text-left">
     <h1 class="display-4">Welcome</h1>
     <p>DfE Learner Data via Education Record APIs example</a>.</p>
-    <p>This website demonstrates but patterns for integration. The display QR code button below is pattern A - and gives your users less to do.
+    <p>This website demonstrates integration patterns for View Education Record. The display QR code button below is pattern A - and gives your users less to do.
         Pattern B, enter a ULN and retrieve data previously scanned on <a href="https://view-education-record.education.gov.uk">View Education Record</a>
     </p>
     <p>Both patterns associate the authorisation (bearer token) with the correct provider UKPRN</p>
     <p></p>
 
-    <div>Pattern A
+    <h2>Pattern A</h2>
+    <div>
         <p>This pattern allows you to create a button in your software that will generate a QR code that the learner can scan with their education record app. 
             When they have scanned the QR code a second end point can be called to retreive the data.</p>
         <a class="btn btn-primary" href="@Url.Action("QrCode")">Display QR Code</a>
@@ -20,7 +21,7 @@
     <p></p>
     <p></p>
     <div>
-        Pattern B
+        <h2>Pattern B</h2>
         <p>Pattern B is similar to pattern A, but the user will scan a QR code displayed on the <a href="https://view-education-record.education.gov.uk">View Education Record</a>
             website. In this case a simple 'retrieve data' based on the ULN is sufficient.</p>
         <form asp-controller="Home" asp-action="Retrieve" method="post"  id="vouch-form">
