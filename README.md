@@ -6,15 +6,15 @@ To enable learners to share their record with providers, the software systems (M
 This repository includes all the code required to implement a simple Pattern A or Pattern B integration pattern.
 It does not contain the required secrets to conect to the DfE test or production systems.
 
-Please reach out to educationrecord.betasupport@education.gov.uk for full test instructions and client credentials.
+Please reach out to educationrecord.betasupport@education.gov.uk for full test instructions, testflight access, and client credentials.
 
 There are two integration patterns currently on offer. These are known as Pattern A and Pattern B and both are detailed below. 
 Pattern A is slightly more technical work but should offer a much improved user experience for the user. 
 Pattern B is offered in realisation that different MI vendors will work at different delivery speeds and their customers will require a mechanism to view this data if they cannot achieve that natively in their chosen MIS product.
 These APIs are detailed in the following swagger link. https://api.sandbox.view-education-record.education.gov.uk/swagger/index.html 
 
-The Education Record app maybe found on the google playstore: https://play.google.com/store/apps/details?id=uk.gov.education.educationrecord
-And on the Apple app store. https://apps.apple.com/app/education-record-pilot/id6477397118
+We would invite MIS developers into our testflight versions of the app - we have slightly more features which are in active development.
+
 
 ## Pattern A
 In this pattern the MIS calls VERA method “generate-qr-code”, this will reply with data that can be used to display a QR code that the learner can then scan directly from the DfE Education Record app. The learner scans the QR code which causes an authorisation record to be created so that calling a second method “learner-data” will return an up to date learner education record. The data specification and example JSON block is shown on the end of this document.

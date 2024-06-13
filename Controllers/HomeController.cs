@@ -37,7 +37,8 @@ namespace VERAExample.Controllers
             HttpClient client = new HttpClient();
             string token = await GetBearerTokenAsync();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var result = await client.GetAsync("https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/generate-qr-code");
+            var url = _configuration.GetValue<string>("BaseAPIURL");
+            var result = await client.GetAsync($"{url}generate-qr-code");
             QrCodeModel qrCode = null;
             if (result.IsSuccessStatusCode)
             {
@@ -86,7 +87,9 @@ namespace VERAExample.Controllers
             HttpClient client = new HttpClient();
             string token = await GetBearerTokenAsync();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var result = await client.GetAsync($"https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/learner-data?correlationId={id}");
+            var url = _configuration.GetValue<string>("BaseAPIURL");
+            
+            var result = await client.GetAsync($"{url}learner-data?correlationId={id}");
             LearnerData data = null;
             if (result.IsSuccessStatusCode)
             {
@@ -102,7 +105,8 @@ namespace VERAExample.Controllers
             HttpClient client = new HttpClient();
             string token = await GetBearerTokenAsync();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-            var result = await client.GetAsync($"https://api.tst.view-education-record.education.gov.uk/api/v1/education-records/learner-data?uln={model.ULN}");
+            var url = _configuration.GetValue<string>("BaseAPIURL");
+            var result = await client.GetAsync($"{url}learner-data?uln={model.ULN}");
             LearnerData data = null;
             if (result.IsSuccessStatusCode)
             {
