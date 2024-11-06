@@ -22,7 +22,7 @@ namespace VERAExample.Controllers
 
             if (result is {IsSuccessStatusCode: true, StatusCode: HttpStatusCode.OK})
             {
-                string content = await result.Content.ReadAsStringAsync();
+                var content = await result.Content.ReadAsStringAsync();
                 output = JsonSerializer.Deserialize<T>(content);
             }
             return output;

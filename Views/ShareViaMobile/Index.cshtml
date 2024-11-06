@@ -11,15 +11,23 @@
     <form asp-controller="ShareViaMobile" asp-action="SubmitForm" method="post" class="form-horizontal">
         <div class="form-group">
             <label asp-for="MobileNumber" class="control-label col-md-2"></label>
-            <div class="col-md-10">
+            <div class="col-md-10"> 
                 <input asp-for="MobileNumber" class="form-control" />
                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
             </div>
         </div>
+      @*   <div class="form-group">
+            <div id="datepicker-group" class="input-group date" data-date-format="dd/mm/yyyy">
+                @Html.TextBoxFor(x => x.DateOfBirth, new {@class="form-control" })         
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+        </div> *@
         <div class="form-group">
             <label asp-for="DateOfBirth" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <input asp-for="DateOfBirth" class="form-control" type="date" placeholder="dd-MM-yyyy" />
+                 @* @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { format="dd/MM/yyyy", @class = "form-control", type = "date" } })  *@
+
+                <input asp-for="DateOfBirth" class="form-control" type="date"  />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
         </div>
@@ -35,4 +43,7 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+  
+  </script>
 }
+
