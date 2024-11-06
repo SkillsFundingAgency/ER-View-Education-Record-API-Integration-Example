@@ -1,0 +1,52 @@
+﻿@model VERAExample.Models.LearnerShareResponse
+
+@{
+    ViewData["Title"] = "Share Via Mobile";
+}
+
+<h2>Education Record - Share request</h2>
+<div>
+    <div class="alert alert-success" role="alert">
+
+        We have requested the learner to share their education record. They should receive a notification shortly.
+    </div>
+    Learner will be asked to enter the code below. You need to display the code to the learner on your website.
+    <br />
+    You can use the correlation Id to retrieve the education record once the learner has shared their education record.
+    <br />
+    <br />
+</div>
+<div>
+    <span class="fw-bold">Correlation Id </span>: @Model.CorrelationId
+    <br />
+    <span class="fw-bold">Code:</span> @Model.Code
+</div>
+<br />
+
+<form asp-controller="ShareViaMobile" asp-action="GetData" method="post" class="form-horizontal">
+    <input asp-for="CorrelationId" type="hidden" />
+    <input asp-for="Code" type="hidden" />
+    <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Retrieve Education Record Data</button>
+    </div>
+</form>
+
+@if (Model.LearnerData != null)
+{
+    @await Html.PartialAsync("_LearnerData", Model.LearnerData)
+}
+else
+{
+    <br />
+    <div class="alert alert-info" role="alert">
+        Learner has not approved your request to their education record yet.
+    </div>
+}
+
+<a asp-action="Index" asp-controller="Home">Back to start</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

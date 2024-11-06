@@ -3,7 +3,13 @@ using System.Net;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+var mvcBuilder = builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+
+if (builder.Environment.IsDevelopment())
+{
+    mvcBuilder.AddRazorRuntimeCompilation();
+}
 
 var app = builder.Build();
 
@@ -19,7 +25,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
