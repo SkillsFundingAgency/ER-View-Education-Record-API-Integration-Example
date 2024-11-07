@@ -1,0 +1,38 @@
+﻿@model VERAExample.Models.LearnerShareRequest
+
+@{
+    ViewData["Title"] = "Share Via Mobile";
+}
+
+<h2>Education Record - Share request</h2>
+<p>Pass in the details to View Education Record Api to check if we have a learner with Education Record</p>
+
+<div class="">
+    <form asp-controller="ShareViaMobile" asp-action="SubmitForm" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label asp-for="MobileNumber" class="control-label col-md-2"></label>
+            <div class="col-md-10"> 
+                <input asp-for="MobileNumber" class="form-control" />
+                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateOfBirth" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="DateOfBirth" class="form-control" type="date"  />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">Check if Learner has Education Record</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
