@@ -74,12 +74,14 @@ namespace VERAExample.Controllers
         {
             var response = await GetDataAsync<LearnerData>($"learner-data?correlationId={request.CorrelationId}");
 
-            var result = new LearnerShareResponse()
+           var result = new LearnerShareResponse()
             {
                 CorrelationId = request.CorrelationId,
                 Code = request.Code,
-                LearnerData = response
+                LearnerData = response.Data,
+                HttpStatusCode = response.StatusCode
             };
+        
 
             return View("LearnerShareRequestSent", result);
         }

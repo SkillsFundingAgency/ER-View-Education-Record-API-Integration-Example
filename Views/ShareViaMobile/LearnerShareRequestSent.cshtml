@@ -1,4 +1,5 @@
-﻿@model VERAExample.Models.LearnerShareResponse
+﻿@using System.Net
+@model VERAExample.Models.LearnerShareResponse
 
 @{
     ViewData["Title"] = "Share Via Mobile";
@@ -27,7 +28,7 @@
     <input asp-for="CorrelationId" type="hidden" />
     <input asp-for="Code" type="hidden" />
     <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-primary">Retrieve Education Record Data</button>
+        <button type="submit" class="btn btn-primary">Retrieve Education Record Data</button>
     </div>
 </form>
 
@@ -35,11 +36,19 @@
 {
     @await Html.PartialAsync("_LearnerData", Model.LearnerData)
 }
+else if (Model.HttpStatusCode == HttpStatusCode.RequestTimeout)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">
+        Either learner has rejected the request or it has been timed out due to lack of action from the learner. Expiry is set to 5 minutes.
+    </div>
+}
 else
 {
     <br />
     <div class="alert alert-info" role="alert">
         Learner has not approved your request to their education record yet. Click on the button above to retrieve the data once they have approved.
+        You can keep calling this periodically to check if the data is available.
     </div>
 }
 

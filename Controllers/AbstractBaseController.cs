@@ -15,7 +15,7 @@ namespace VERAExample.Controllers
             _configuration = configuration;
         }
 
-        protected async Task<T> GetDataAsync<T>(string url) where T : class
+        protected async Task<(T Data, HttpStatusCode StatusCode)> GetDataAsync<T>(string url) where T : class
         {
             T output = null;
             var result = await GetDataAsync(url);
@@ -25,7 +25,7 @@ namespace VERAExample.Controllers
                 var content = await result.Content.ReadAsStringAsync();
                 output = JsonSerializer.Deserialize<T>(content);
             }
-            return output;
+            return (output, result.StatusCode);
         }
 
         protected async Task<HttpResponseMessage> GetDataAsync(string url)
