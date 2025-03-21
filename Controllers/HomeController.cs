@@ -36,20 +36,20 @@ namespace VERAExample.Controllers
         public async Task<IActionResult> QrCode()
         {
             var result = await GetDataAsync<QrCodeModel>("generate-qr-code");
-            return View(result);
+            return View(result.Data);
         }
 
         public async Task<IActionResult> LearnerData(string id)
         {
             var result = await GetDataAsync<LearnerData>("learner-data?correlationId={id}");
-            return View(result);
+            return View(result.Data);
         }
 
         [HttpPost]
         public async Task<IActionResult> Retrieve(RetrieveModel model)
         {
             var result = await GetDataAsync<LearnerData>($"learner-data?uln={model.ULN}");
-            return View(result);
+            return View(result.Data);
         }
 
     }
