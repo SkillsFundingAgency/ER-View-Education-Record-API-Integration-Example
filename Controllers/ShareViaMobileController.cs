@@ -36,7 +36,7 @@ namespace VERAExample.Controllers
                 return View("LearnerFound", request);
             }
             // Redirect to a confirmation page or back to the form
-            return RedirectToAction("Index");
+            return View("LearnerNotFound");
         }
 
 
