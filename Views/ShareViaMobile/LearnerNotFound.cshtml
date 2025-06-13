@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Share Via Mobile";
+}
+
+<h2>Education Record - Share request</h2>
+
+<div class="">
+
+    Learner not found with the mobile number and date of birth provided.
+    <br />
+    <a asp-action="Index" asp-controller="Home">Back to start</a>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

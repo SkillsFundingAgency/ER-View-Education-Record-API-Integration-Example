@@ -1,0 +1,41 @@
+﻿@model VERAExample.Models.LearnerShareRequest
+
+@{
+    ViewData["Title"] = "Share Via Mobile";
+}
+
+<h2>Education Record - Share request</h2>
+
+<div class="">
+
+    <div class="alert alert-success" role="alert">
+        We have found learner matching the mobile number and date of birth provided.
+    </div>
+    <br />
+    <span class="fw-bold">Mobile Number:</span> @Model.MobileNumber
+    <br />
+    <span class="fw-bold">Date of Birth:</span> @Model.DateOfBirth.ToString("dd-MM-yyyy")
+</div>
+<div class="text-left">
+
+    <br />
+    Do you want to request the learner to share their education record?
+    <br />
+    <form asp-controller="ShareViaMobile" asp-action="RequestLearnerShare" method="post" class="form-horizontal">
+        <input asp-for="MobileNumber" type="hidden" />
+        <input asp-for="DateOfBirth" type="hidden" />
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Yes</button>
+        </div>
+    </form>
+    
+    <br />
+    <a asp-action="Index" asp-controller="Home">Back to start</a>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

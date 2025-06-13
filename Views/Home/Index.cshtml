@@ -5,8 +5,9 @@
 
 <div class="text-left">
     <h1 class="display-4">Welcome</h1>
-    <p>DfE Learner Data via Education Record APIs example</a>.</p>
-    <p>This website demonstrates integration patterns for View Education Record. The display QR code button below is pattern A - and gives your users less to do.
+    <p>DfE Learner Data via Education Record APIs example.</p>
+    <p>
+        This website demonstrates integration patterns for View Education Record. The display QR code button below is pattern A - and gives your users less to do.
         Pattern B, enter a ULN and retrieve data previously scanned on <a href="https://view-education-record.education.gov.uk">View Education Record</a>
     </p>
     <p>Both patterns associate the authorisation (bearer token) with the correct provider UKPRN</p>
@@ -14,19 +15,35 @@
 
     <h2>Pattern A</h2>
     <div>
-        <p>This pattern allows you to create a button in your software that will generate a QR code that the learner can scan with their education record app. 
-            When they have scanned the QR code a second end point can be called to retreive the data.</p>
+        <p>
+            This pattern allows you to create a button in your software that will generate a QR code that the learner can scan with their education record app.
+            When they have scanned the QR code a second end point can be called to retreive the data.
+        </p>
         <a class="btn btn-primary" href="@Url.Action("QrCode")">Display QR Code</a>
     </div>
     <p></p>
     <p></p>
     <div>
         <h2>Pattern B</h2>
-        <p>Pattern B is similar to pattern A, but the user will scan a QR code displayed on the <a href="https://view-education-record.education.gov.uk">View Education Record</a>
-            website. In this case a simple 'retrieve data' based on the ULN is sufficient.</p>
-        <form asp-controller="Home" asp-action="Retrieve" method="post"  id="vouch-form">
-    @Html.TextBoxFor(m => m.ULN)
+        <p>
+            Pattern B is similar to pattern A, but the user will scan a QR code displayed on the <a href="https://view-education-record.education.gov.uk">View Education Record</a>
+            website. In this case a simple 'retrieve data' based on the ULN is sufficient.
+        </p>
+        <form asp-controller="Home" asp-action="Retrieve" method="post" id="vouch-form">
+            @Html.TextBoxFor(m => m.ULN)
             <button class="btn btn-primary">Retrieve</button>
-</form>
+        </form>
+    </div>
+    <p></p>
+    <p></p>
+    <div>
+        <h2>Pattern C</h2>
+        <p>
+            Pattern C is where you can check with the View Education Record API if a learner has an education record. If learner has an education record, you can request the learner to share their education record.
+            Once learner has shared their education record, you can retrieve the education record by using the correlation Id (as in Pattern A) 
+        </p>
+        <form asp-controller="ShareViaMobile" asp-action="Index" method="get" id="vouch-form">
+            <button class="btn btn-primary">Ask learner permission via mobile app notification</button>
+        </form>
     </div>
 </div>
