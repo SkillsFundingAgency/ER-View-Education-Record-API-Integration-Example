@@ -41,7 +41,7 @@ namespace VERAExample.Controllers
 
         public async Task<IActionResult> LearnerData(string id)
         {
-            var result = await GetDataAsync<LearnerData>("learner-data?correlationId={id}");
+            var result = await GetDataAsync<LearnerData>($"learner-data?correlationId={id}");
             return View(result.Data);
         }
 
