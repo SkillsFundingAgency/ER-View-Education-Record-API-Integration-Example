@@ -46,7 +46,7 @@ namespace VERAExample.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Retrieve(RetrieveModel model)
+        public async Task<IActionResult> Retrieve(RetrieveModel model)  
         {
             var result = await GetDataAsync<LearnerData>($"learner-data?uln={model.ULN}");
             return View(result.Data);
