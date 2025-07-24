@@ -8,9 +8,10 @@ It does not contain the required secrets to conect to the DfE test or production
 
 Please reach out to educationrecord.betasupport@education.gov.uk for full test instructions, testflight access, and client credentials.
 
-There are two integration patterns currently on offer. These are known as Pattern A and Pattern B and both are detailed below. 
+There are three integration patterns currently on offer. These are known as Pattern A, B and C and are detailed below. 
 Pattern A is slightly more technical work but should offer a much improved user experience for the user. 
 Pattern B is offered in realisation that different MI vendors will work at different delivery speeds and their customers will require a mechanism to view this data if they cannot achieve that natively in their chosen MIS product.
+Pattern C allows the website to ask the DfE if a learner, with a mobile phone number, has an education record. If they do to display a code and ask the DfE to send a push notification to the learners phone where they simply authorise sharing.
 These APIs are detailed in the following swagger link. https://api.sandbox.view-education-record.education.gov.uk/swagger/index.html 
 
 We would invite MIS developers into our testflight versions of the app - we have slightly more features which are in active development.
@@ -54,6 +55,22 @@ The college MIS system will have, in the context of a learner data entry screen:
 
 ![Learner sharing data with VER](readme-share-image-ver.png)
 ![Pattern B Architecture](readme-patternb-architecture.png)
+
+## Pattern C
+Learner applies for a course, enters basic data, such as name, date of birth and mobile phone number. Website can ask the DfE 'does this learner hae an education record'. 
+The website can then ask for the learner to authorise the release of data. This gives a very nice seemless journey for the learner and no QR codes are required.
+
+1) Capture learner details e.g. in a course application form
+2) Ask DfE 'does record exist'
+3) Ask for data sharing - secure code display
+4) Systems sends a notification to the phone, user can see who is asking for their record and can approve it and enter the associated code
+5) User approves the request
+6) Poll for data ready
+7) Get the latest data
+8) display data in the application form
+
+
+![Learner sharing via mobile number](readme-patternc-architecture.jpg)
 
 # Testing Integration
 To test integration you will need to be able to issue test education credentials to yourself, load them onto a smart phone (android or iOS) so that you can scan the presentation QR code.
