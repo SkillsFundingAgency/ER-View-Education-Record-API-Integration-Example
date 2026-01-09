@@ -3,8 +3,8 @@
 The DfE have created a new service to enable learners to share their official education records with Further Education providers. 
 To enable learners to share their record with providers, the software systems (Management Information Systems), that the providers use, must integrate with the ‘View Education Record APIs’ (VERA).
 
-This repository includes all the code required to implement a simple Pattern A or Pattern B integration pattern.
-It does not contain the required secrets to conect to the DfE test or production systems.
+This repository includes all the code required to implement a simple Pattern A, Pattern B, or Pattern C integration pattern.
+It does not contain the required secrets to connect to the DfE test or production systems. Please note that providers will also need their own production credentials.
 
 Please reach out to educationrecord.betasupport@education.gov.uk for full test instructions, testflight access, and client credentials.
 
@@ -14,7 +14,7 @@ Pattern B is offered in realisation that different MI vendors will work at diffe
 Pattern C allows the website to ask the DfE if a learner, with a mobile phone number, has an education record. If they do to display a code and ask the DfE to send a push notification to the learners phone where they simply authorise sharing.
 These APIs are detailed in the following swagger link. https://api.sandbox.view-education-record.education.gov.uk/swagger/index.html 
 
-We would invite MIS developers into our testflight versions of the app - we have slightly more features which are in active development.
+We would invite MIS developers into our testflight (Apple) versions of the app - we have slightly more features which are in active development.
 
 
 ## Pattern A
@@ -73,15 +73,17 @@ The website can then ask for the learner to authorise the release of data. This 
 ![Learner sharing via mobile number](readme-patternc-architecture.jpg)
 
 # Testing Integration
-To test integration you will need to be able to issue test education credentials to yourself, load them onto a smart phone (android or iOS) so that you can scan the presentation QR code.
-Use the ‘Issue Education Record’ website to do this. Please contact the DfE for appropriate credentials. https://sandbox.issue-education-record.education.gov.uk 
+To test integration you will need to be able to issue test education records to yourself, load them onto a smart phone (android or iOS) so that you can then test your integration pattern(s) that you've created.
+We have a test only service design for this purpose: https://testlearnerissuance.web.sandbox.ec.titan.fasst.org.uk/
+No login is required for this website (as it is test only), but you do need to know some values that are setup in the backend database. Please contact the DfE for appropriate values to use. 
 
 ![Learner sharing data with VER](readme-patternb-user-journey.png)
 
 # Code
-The repo contains a simple MVC application that implements pattern A and pattern B.
+The repo contains a simple MVC application that implements pattern A, pattern B and pattern C.
 Pattern A calls the DfE with a client secret, gets a JWT bearer token and then calls the generate QR code method.
 The QrCode page then displays the QR code that may be scanned with the Education Record app. 
 Pattern B requires you to use the View Education Record service in combination with the learner-data API.
+Pattern C is similar to pattern A - you require a client secret, gets a JWT and then calls some other end points to ask the learner to authorise sharing.
 
 
