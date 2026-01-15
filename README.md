@@ -32,7 +32,7 @@ The college MIS system will have, in the context of a learner data entry screen:
 6)	MIS then calls ‘learner-data’ Parameters CorrelationId and secured by the same bearer token
 7)	DfE return payload for learner. Or various error codes (see the swagger).
 
-![Learner sharing data](readme-share-image.png)
+![Learner sharing data](readme-share-image.jpg)
 ![Pattern A Architecture](readme-patterna-architecture.png)
 
 ## Pattern B
@@ -53,7 +53,7 @@ The college MIS system will have, in the context of a learner data entry screen:
 3)	This button will call into a new API method – learner-data with parameter of ULN and secured with a JWT
 4)	DfE returns the payload for learner. Or various error codes (see the swagger).
 
-![Learner sharing data with VER](readme-share-image-ver.png)
+![Learner sharing data with VER](readme-share-image-ver.jpg)
 ![Pattern B Architecture](readme-patternb-architecture.png)
 
 ## Pattern C
