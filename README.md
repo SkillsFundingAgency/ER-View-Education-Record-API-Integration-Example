@@ -53,7 +53,6 @@ The college MIS system will have, in the context of a learner data entry screen:
 3)	This button will call into a new API method – learner-data with parameter of ULN and secured with a JWT
 4)	DfE returns the payload for learner. Or various error codes (see the swagger).
 
-![Learner sharing data with VER](readme-share-image-ver.jpg)
 ![Pattern B Architecture](readme-patternb-architecture.png)
 
 ## Pattern C
@@ -70,6 +69,7 @@ The website can then ask for the learner to authorise the release of data. This 
 8) display data in the application form
 
 
+![Learner sharing data with VER](readme-share-image-ver.jpg)
 ![Learner sharing via mobile number](readme-patternc-architecture.jpg)
 
 # Testing Integration
