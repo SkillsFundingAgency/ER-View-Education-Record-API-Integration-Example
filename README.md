@@ -1,7 +1,7 @@
 # View Education Record API Integration Example code
 
 The DfE have created a new service to enable learners to share their official education records with Further Education providers. 
-To enable learners to share their record with providers, the software systems (Management Information Systems), that the providers use, must integrate with the ‘View Education Record APIs’ (VERA).
+To enable learners to share their record with providers, the software systems (Management Information Systems), that the providers use, must integrate with the ï¿½View Education Record APIsï¿½ (VERA).
 
 This repository includes all the code required to implement a simple Pattern A, Pattern B, or Pattern C integration pattern.
 It does not contain the required secrets to connect to the DfE test or production systems. Please note that providers will also need their own production credentials.
@@ -18,18 +18,18 @@ We would invite MIS developers into our testflight (Apple) versions of the app -
 
 
 ## Pattern A
-In this pattern the MIS calls VERA method “generate-qr-code”, this will reply with data that can be used to display a QR code that the learner can then scan directly from the DfE Education Record app. The learner scans the QR code which causes an authorisation record to be created so that calling a second method “learner-data” will return an up to date learner education record. The data specification and example JSON block is shown on the end of this document.
+In this pattern the MIS calls VERA method ï¿½generate-qr-codeï¿½, this will reply with data that can be used to display a QR code that the learner can then scan directly from the DfE Education Record app. The learner scans the QR code which causes an authorisation record to be created so that calling a second method ï¿½learner-dataï¿½ will return an up to date learner education record. The data specification and example JSON block is shown on the end of this document.
 These two methods are secured and require a bearer token to authorise access. Each provider will be issued with a unique client id and client secret. The MI vendors will have to be able to setup these values in an appropriate settings database and use the values associated with the logged in user. Each client id is associated with a specific UKPRN. The learner will know which provider organisation is requesting the data and will see the name clearly displayed in the App.
-The learner scanning the code sets up a relationship between the learner’s ULN and the users UKPRN – the learner is specifically authorising that provider to access their record. This pattern overcomes some of the issues that can be associated with the existing LRS ability to share flag (AKA privacy seen flag).
+The learner scanning the code sets up a relationship between the learnerï¿½s ULN and the users UKPRN ï¿½ the learner is specifically authorising that provider to access their record. This pattern overcomes some of the issues that can be associated with the existing LRS ability to share flag (AKA privacy seen flag).
 
 ### Pattern A - Sequence
 The college MIS system will have, in the context of a learner data entry screen:
 1)	Generate QR Code button.
-2)	This button will call into a new API – generate-qr-code. Secured by bearer token. The bearer token lets the DfE know the provider
+2)	This button will call into a new API ï¿½ generate-qr-code. Secured by bearer token. The bearer token lets the DfE know the provider
 3)	DFE payload reply with a QR Code + correlationid
 4)	MIS System displays the QR Code
 5)	Learner themselves scans the QR code and DfE gets a callback. DfE decode the claims, enhance with latest LRS data, DfE now have the data ready for presentation.
-6)	MIS then calls ‘learner-data’ Parameters CorrelationId and secured by the same bearer token
+6)	MIS then calls ï¿½learner-dataï¿½ Parameters CorrelationId and secured by the same bearer token
 7)	DfE return payload for learner. Or various error codes (see the swagger).
 
 ![Learner sharing data](readme-share-image.jpg)
@@ -38,19 +38,19 @@ The college MIS system will have, in the context of a learner data entry screen:
 ## Pattern B
 The user will have two systems open on their laptop.
 View Education Record and their MIS system.
-In this pattern the user will be logged into a DfE service ‘View Education Record (VER)’. This gives us the UKPRN of the user. The VER service will allow the user to generate a QR code that the learner can scan. If the learner scans and authorises sharing, in the DfE Education Record app, then a link between the learner’s ULN and the users UKPRN will be set up.
-Your MIS system can then be enhanced to retrieve that data via a new method ‘learner-data’ with a parameter of the ULN and secured by a JWT bearer token.
+In this pattern the user will be logged into a DfE service ï¿½View Education Record (VER)ï¿½. This gives us the UKPRN of the user. The VER service will allow the user to generate a QR code that the learner can scan. If the learner scans and authorises sharing, in the DfE Education Record app, then a link between the learnerï¿½s ULN and the users UKPRN will be set up.
+Your MIS system can then be enhanced to retrieve that data via a new method ï¿½learner-dataï¿½ with a parameter of the ULN and secured by a JWT bearer token.
 
 ### Pattern B - Sequence
 View Education record service requires them to login (so we know their UKPRN).
 1)	Generate QR Code button
-2)	Generates the data and displays on screen. Including the ULN with an ‘easy copy’ option.
+2)	Generates the data and displays on screen. Including the ULN with an ï¿½easy copyï¿½ option.
 3)	Because user signed in we can create a record that allows a combination of UKPRN + ULN to successfully return data. 
 
 The college MIS system will have, in the context of a learner data entry screen:
 1)	The ability to paste the ULN
-2)	Get “learner data” button.
-3)	This button will call into a new API method – learner-data with parameter of ULN and secured with a JWT
+2)	Get ï¿½learner dataï¿½ button.
+3)	This button will call into a new API method ï¿½ learner-data with parameter of ULN and secured with a JWT
 4)	DfE returns the payload for learner. Or various error codes (see the swagger).
 
 ![Pattern B Architecture](readme-patternb-architecture.png)
@@ -86,4 +86,5 @@ The QrCode page then displays the QR code that may be scanned with the Education
 Pattern B requires you to use the View Education Record service in combination with the learner-data API.
 Pattern C is similar to pattern A - you require a client secret, gets a JWT and then calls some other end points to ask the learner to authorise sharing.
 
-
+# Direct HTTPS Curl Examples
+The repo contains a folder with example Curl requests to assist non-C# developers utilise DfE Education Record APIs. You can find the folder here [Curl-Examples](Curl-Examples)
