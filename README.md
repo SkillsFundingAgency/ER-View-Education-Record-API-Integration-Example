@@ -3,18 +3,19 @@
 The DfE have created a new service to enable learners to share their official education records with Further Education providers. 
 To enable learners to share their record with providers, the software systems (Management Information Systems), that the providers use, must integrate with the ‘View Education Record APIs’ (VERA).
 
-This repository includes all the code required to implement a simple Pattern A or Pattern B integration pattern.
-It does not contain the required secrets to conect to the DfE test or production systems.
+This repository includes all the code required to implement a simple Pattern A, Pattern B, or Pattern C integration pattern.
+It does not contain the required secrets to connect to the DfE test or production systems. Please note that providers will also need their own production credentials.
 
-Please reach out to educationrecord.betasupport@education.gov.uk for full test instructions and client credentials.
+Please reach out to educationrecord.betasupport@education.gov.uk for full test instructions, testflight access, and client credentials.
 
-There are two integration patterns currently on offer. These are known as Pattern A and Pattern B and both are detailed below. 
+There are three integration patterns currently on offer. These are known as Pattern A, B and C and are detailed below. 
 Pattern A is slightly more technical work but should offer a much improved user experience for the user. 
 Pattern B is offered in realisation that different MI vendors will work at different delivery speeds and their customers will require a mechanism to view this data if they cannot achieve that natively in their chosen MIS product.
+Pattern C allows the website to ask the DfE if a learner, with a mobile phone number, has an education record. If they do to display a code and ask the DfE to send a push notification to the learners phone where they simply authorise sharing.
 These APIs are detailed in the following swagger link. https://api.sandbox.view-education-record.education.gov.uk/swagger/index.html 
 
-The Education Record app maybe found on the google playstore: https://play.google.com/store/apps/details?id=uk.gov.education.educationrecord
-And on the Apple app store. https://apps.apple.com/app/education-record-pilot/id6477397118
+We would invite MIS developers into our testflight (Apple) versions of the app - we have slightly more features which are in active development.
+
 
 ## Pattern A
 In this pattern the MIS calls VERA method “generate-qr-code”, this will reply with data that can be used to display a QR code that the learner can then scan directly from the DfE Education Record app. The learner scans the QR code which causes an authorisation record to be created so that calling a second method “learner-data” will return an up to date learner education record. The data specification and example JSON block is shown on the end of this document.
@@ -31,7 +32,7 @@ The college MIS system will have, in the context of a learner data entry screen:
 6)	MIS then calls ‘learner-data’ Parameters CorrelationId and secured by the same bearer token
 7)	DfE return payload for learner. Or various error codes (see the swagger).
 
-![Learner sharing data](readme-share-image.png)
+![Learner sharing data](readme-share-image.jpg)
 ![Pattern A Architecture](readme-patterna-architecture.png)
 
 ## Pattern B
@@ -52,19 +53,37 @@ The college MIS system will have, in the context of a learner data entry screen:
 3)	This button will call into a new API method – learner-data with parameter of ULN and secured with a JWT
 4)	DfE returns the payload for learner. Or various error codes (see the swagger).
 
-![Learner sharing data with VER](readme-share-image-ver.png)
 ![Pattern B Architecture](readme-patternb-architecture.png)
 
+## Pattern C
+Learner applies for a course, enters basic data, such as name, date of birth and mobile phone number. Website can ask the DfE 'does this learner hae an education record'. 
+The website can then ask for the learner to authorise the release of data. This gives a very nice seemless journey for the learner and no QR codes are required.
+
+1) Capture learner details e.g. in a course application form
+2) Ask DfE 'does record exist'
+3) Ask for data sharing - secure code display
+4) Systems sends a notification to the phone, user can see who is asking for their record and can approve it and enter the associated code
+5) User approves the request
+6) Poll for data ready
+7) Get the latest data
+8) display data in the application form
+
+
+![Learner sharing data with VER](readme-share-image-ver.jpg)
+![Learner sharing via mobile number](readme-patternc-architecture.jpg)
+
 # Testing Integration
-To test integration you will need to be able to issue test education credentials to yourself, load them onto a smart phone (android or iOS) so that you can scan the presentation QR code.
-Use the ‘Issue Education Record’ website to do this. Please contact the DfE for appropriate credentials. https://sandbox.issue-education-record.education.gov.uk 
+To test integration you will need to be able to issue test education records to yourself, load them onto a smart phone (android or iOS) so that you can then test your integration pattern(s) that you've created.
+We have a test only service design for this purpose: https://testlearnerissuance.web.sandbox.ec.titan.fasst.org.uk/
+No login is required for this website (as it is test only), but you do need to know some values that are setup in the backend database. Please contact the DfE for appropriate values to use. 
 
 ![Learner sharing data with VER](readme-patternb-user-journey.png)
 
 # Code
-The repo contains a simple MVC application that implements pattern A and pattern B.
+The repo contains a simple MVC application that implements pattern A, pattern B and pattern C.
 Pattern A calls the DfE with a client secret, gets a JWT bearer token and then calls the generate QR code method.
 The QrCode page then displays the QR code that may be scanned with the Education Record app. 
 Pattern B requires you to use the View Education Record service in combination with the learner-data API.
+Pattern C is similar to pattern A - you require a client secret, gets a JWT and then calls some other end points to ask the learner to authorise sharing.
 
 

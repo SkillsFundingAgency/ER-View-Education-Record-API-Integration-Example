@@ -3,9 +3,16 @@
 @{
     ViewData["Title"] = "LearnerData";
     }
+    
+@if (Model == null)
+{
+    <p>No data available - User has not completed the share request</p>
+}
+else
+{
 
-@await Html.PartialAsync("_LearnerData",Model)
-
+    @await Html.PartialAsync("_LearnerData", Model)
+}
 <div>    
     <a asp-action="Index">Back to start</a>
 </div>

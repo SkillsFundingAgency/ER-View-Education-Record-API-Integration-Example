@@ -2,7 +2,7 @@
 {
     public class LearnerData
     {
-        public int uln { get; set; }
+        public long uln { get; set; }
         public string middleNames { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -22,8 +22,8 @@
         public string secondarySENTypeDescription { get; set; }
         public int freeSchoolMealEligible {  get; set; }
         public FreeSchoolMealEligibleLatest freeSchoolMealEligibleLatest { get; set; }
-        public IEnumerable<LearnerQualification> qualifications { get; set; }
-        public IEnumerable<LearnerSchool> schools { get; set; }
+        public List<LearnerQualification>? qualifications { get; set; }
+        public List<LearnerSchool>? schools { get; set; }
 
     }
 }
